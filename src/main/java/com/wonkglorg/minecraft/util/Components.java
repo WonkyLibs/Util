@@ -2,6 +2,7 @@ package com.wonkglorg.minecraft.util;
 
 import net.kyori.adventure.text.Component;
 import static net.kyori.adventure.text.minimessage.MiniMessage.miniMessage;
+import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 
 import java.util.List;
 
@@ -50,4 +51,10 @@ public class Components{
 		return messages.stream().map(miniMessage()::serialize).toList();
 	}
 	
+	/**
+	 * Converts a component to plain text
+	 */
+	public static String toPlainText(final Component message) {
+		return PlainTextComponentSerializer.plainText().serialize(message);
+	}
 }
