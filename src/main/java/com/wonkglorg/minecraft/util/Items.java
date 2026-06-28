@@ -1,6 +1,8 @@
 package com.wonkglorg.minecraft.util;
 
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.minimessage.MiniMessage;
+import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
@@ -17,6 +19,23 @@ import java.util.List;
 
 @SuppressWarnings("unused")
 public final class Items{
+	
+	public static ItemStack create(Material material, String itemName, List<String> lore) {
+		var itemstack = new ItemStack(material);
+		ItemMeta meta = itemstack.getItemMeta();
+		meta.displayName(MiniMessage.miniMessage().deserialize(itemName));
+		meta.lore(lore.stream().map(MiniMessage.miniMessage()::deserialize).toList());
+		itemstack.setItemMeta(meta);
+		return itemstack;
+	}
+	
+	public static ItemStack create(Material material) {
+		var itemstack = new ItemStack(material);
+		ItemMeta meta = itemstack.getItemMeta();
+		itemstack.setItemMeta(meta);
+		return itemstack;
+	}
+	
 	/**
 	 * Renames an ItemStack
 	 *
@@ -26,6 +45,18 @@ public final class Items{
 	public static void setName(@NotNull final ItemStack item, @NotNull final Component name) {
 		ItemMeta meta = item.getItemMeta();
 		meta.displayName(name);
+		item.setItemMeta(meta);
+	}
+	
+	/**
+	 * Renames an ItemStack
+	 *
+	 * @param item The ItemStack to be renamed
+	 * @param name The name to give the ItemStack
+	 */
+	public static void setName(@NotNull final ItemStack item, @NotNull final String name) {
+		ItemMeta meta = item.getItemMeta();
+		meta.displayName(MiniMessage.miniMessage().deserialize(name));
 		item.setItemMeta(meta);
 	}
 	
