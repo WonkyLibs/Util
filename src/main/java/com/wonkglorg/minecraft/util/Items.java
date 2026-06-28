@@ -29,9 +29,10 @@ public final class Items{
 		return itemstack;
 	}
 	
-	public static ItemStack create(Material material) {
+	public static ItemStack create(Material material, String name) {
 		var itemstack = new ItemStack(material);
 		ItemMeta meta = itemstack.getItemMeta();
+		meta.displayName(MiniMessage.miniMessage().deserialize(name));
 		itemstack.setItemMeta(meta);
 		return itemstack;
 	}
